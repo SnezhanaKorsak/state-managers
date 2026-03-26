@@ -1,0 +1,18 @@
+.themeToggleButton {
+  height: 32px;
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background-color: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+  font-size: 14px;
+}
+
+.themeToggleButton:hover {
+  background-color: var(--primary);
+  color: var(--button-text);
+}

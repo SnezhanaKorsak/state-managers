@@ -1,0 +1,32 @@
+.addTodoContainer {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background-color: var(--surface);
+}
+
+.addTodoInput {
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  color: var(--text);
+  background-color: var(--input-bg);
+}
+
+.addTodoButton {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  background-color: var(--primary);
+  color: var(--button-text);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.addTodoButton:hover {
+  background-color: var(--primary-hover);
+}
