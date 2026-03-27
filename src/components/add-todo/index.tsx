@@ -1,12 +1,17 @@
 import { useState } from 'react';
 
+import { useAppDispatch } from '../../hooks/redux';
+import { addTodo } from '../../store/todo/slice';
+
 import styles from './index.module.css';
 
 export const AddTodo = () => {
+  const dispatch = useAppDispatch();
+
   const [text, setText] = useState('');
 
-  const addTodo = () => {
-    console.log(text);
+  const onAddTodo = () => {
+    dispatch(addTodo(text));
     setText('');
   };
 
@@ -17,7 +22,7 @@ export const AddTodo = () => {
         value={text}
         onChange={(e) => setText(e.target.value)}
       />
-      <button className={styles.addTodoButton} onClick={addTodo}>
+      <button className={styles.addTodoButton} onClick={onAddTodo}>
         Add
       </button>
     </div>

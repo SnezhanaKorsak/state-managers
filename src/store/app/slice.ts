@@ -8,7 +8,7 @@ interface AppState {
 }
 
 const initialState: AppState = {
-  //theme: (localStorage.getItem('theme') as Theme) || 'light',
+  theme: (localStorage.getItem('theme') as Theme) || 'light',
   filter: 'all',
 };
 
@@ -16,16 +16,15 @@ const appSlice = createSlice({
   name: 'app',
   initialState,
   reducers: {
-    /* toggleTheme(state) {
+    toggleTheme(state) {
       state.theme = state.theme === 'light' ? 'dark' : 'light';
       localStorage.setItem('theme', state.theme);
-    },*/
+    },
     setFilter(state, action: PayloadAction<Filter>) {
       state.filter = action.payload;
     },
   },
 });
 
-//export const { toggleTheme, setFilter } = appSlice.actions;
-export const { setFilter } = appSlice.actions;
+export const { toggleTheme, setFilter } = appSlice.actions;
 export const appReducer = appSlice.reducer;

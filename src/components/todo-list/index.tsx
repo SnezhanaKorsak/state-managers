@@ -1,18 +1,27 @@
-import { filters, testData } from '../../constants';
+import { useEffect } from 'react';
+
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import {
+  filteredTodoSelector,
+  todoLoadingSelector,
+  todoSelector,
+} from '../../store/todo/selectors';
+import { fetchTodos } from '../../store/todo/thunk';
 import { TodoItem } from './todo-items';
 
 import styles from './index.module.css';
 
 export const TodoList = () => {
-  const todos = testData;
-  const filter = filters[0];
-  const loading = false;
+  const dispatch = useAppDispatch();
+  const todos = useAppSelector(todoSelector);
+  const filteredTodos = useAppSelector(filteredTodoSelector);
+  const loading = useAppSelector(todoLoadingSelector);
 
-  const filteredTodos = todos.filter((todo) => {
-    if (filter === 'active') return !todo.completed;
-    if (filter === 'completed') return todo.completed;
-    return true;
-  });
+  useEffect(() => {
+    if (todos.length === 0) {
+      dispatch(fetchTodos());
+    }
+  }, [todos.length, dispatch]);
 
   if (loading) {
     return <p>Loading...</p>;
@@ -20,9 +29,11 @@ export const TodoList = () => {
 
   return (
     <div className={styles.todoListContainer}>
-      {filteredTodos.map((todo) => (
-        <TodoItem key={todo.id} todo={todo} />
-      ))}
+      {filteredTodos.length > 0 ? (
+        filteredTodos.map((todo) => <TodoItem key={todo.id} todo={todo} />)
+      ) : (
+        <h2 className={styles.alert}>Add new task!</h2>
+      )}
     </div>
   );
 };

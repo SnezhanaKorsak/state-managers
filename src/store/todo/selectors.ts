@@ -5,7 +5,7 @@ import { appFilterSelector } from '../app/selectors';
 
 import type { Todo } from '../../types';
 
-const todoSelector = (state: RootState) => state.todo.data;
+export const todoSelector = (state: RootState) => state.todo.data;
 
 export const filteredTodoSelector = createSelector(
   [todoSelector, appFilterSelector],
@@ -21,3 +21,5 @@ export const filteredTodoSelector = createSelector(
     return todoList;
   },
 );
+
+export const todoLoadingSelector = (state: RootState) => state.todo.loading;

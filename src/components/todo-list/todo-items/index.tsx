@@ -1,3 +1,6 @@
+import { useAppDispatch } from '../../../hooks/redux';
+import { toggleTodo } from '../../../store/todo/slice';
+
 import type { Todo } from '../../../types';
 
 import styles from './index.module.css';
@@ -7,8 +10,10 @@ type Props = {
 };
 
 export const TodoItem = ({ todo }: Props) => {
+  const dispatch = useAppDispatch();
+
   const onChangeTodoStatus = () => {
-    console.log('onChange status');
+    dispatch(toggleTodo(todo.id));
   };
 
   return (

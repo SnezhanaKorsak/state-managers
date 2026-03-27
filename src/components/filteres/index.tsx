@@ -1,12 +1,19 @@
 import { filters } from '../../constants';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { appFilterSelector } from '../../store/app/selectors';
+import { setFilter } from '../../store/app/slice';
+
+import type { Filter } from '../../types';
 
 import styles from './index.module.css';
 
 export const Filters = () => {
-  const filter = 'all';
+  const dispatch = useAppDispatch();
 
-  const onChangeFilter = () => {
-    console.log('filter change');
+  const filter = useAppSelector(appFilterSelector);
+
+  const onChangeFilter = (filterName: Filter) => {
+    dispatch(setFilter(filterName));
   };
 
   return (
@@ -15,7 +22,7 @@ export const Filters = () => {
         <button
           key={f}
           className={`${styles.filterButton} ${filter === f ? styles.active : ''}`}
-          onClick={onChangeFilter}
+          onClick={() => onChangeFilter(f)}
         >
           {f}
         </button>

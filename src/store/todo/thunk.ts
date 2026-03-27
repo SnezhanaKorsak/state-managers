@@ -4,7 +4,7 @@ import type { Todo } from '../../types';
 
 type ThunkApiConfig = { rejectValue: string };
 
-export const fetchTodos = createAsyncThunk<Todo[], ThunkApiConfig>(
+export const fetchTodos = createAsyncThunk<Todo[], void, ThunkApiConfig>(
   'todo/loadTodos',
   async (_, { rejectWithValue }) => {
     try {
