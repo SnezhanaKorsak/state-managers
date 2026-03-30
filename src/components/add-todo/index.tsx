@@ -1,12 +1,20 @@
 import { useState } from 'react';
 
+import { useStore } from '../../store/StoreContext';
+
 import styles from './index.module.css';
 
 export const AddTodo = () => {
+  const { todoStore } = useStore();
+
   const [text, setText] = useState('');
 
   const addTodo = () => {
-    console.log(text);
+    if (!text.trim()) {
+      return;
+    }
+
+    todoStore.addTodo(text);
     setText('');
   };
 

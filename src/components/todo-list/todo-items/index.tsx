@@ -1,3 +1,7 @@
+import { observer } from 'mobx-react-lite';
+
+import { useStore } from '../../../store/StoreContext';
+
 import type { Todo } from '../../../types';
 
 import styles from './index.module.css';
@@ -6,9 +10,11 @@ type Props = {
   todo: Todo;
 };
 
-export const TodoItem = ({ todo }: Props) => {
+export const TodoItem = observer(({ todo }: Props) => {
+  const { todoStore } = useStore();
+
   const onChangeTodoStatus = () => {
-    console.log('onChange status');
+    todoStore.toggleTodo(todo.id);
   };
 
   return (
@@ -25,4 +31,4 @@ export const TodoItem = ({ todo }: Props) => {
       </span>
     </div>
   );
-};
+});

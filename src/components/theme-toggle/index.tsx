@@ -1,17 +1,21 @@
-import { useState } from 'react';
+import { observer } from 'mobx-react-lite';
+
+import { useStore } from '../../store/StoreContext';
 
 import styles from './index.module.css';
 
-export const ThemeToggle = () => {
-  const [theme, setTheme] = useState('light');
+export const ThemeToggle = observer(() => {
+  const { appStore } = useStore();
+
+  const theme = appStore.theme;
 
   const onChangeTheme = () => {
-    setTheme((prevState) => (prevState === 'light' ? 'dark' : 'light'));
+    appStore.toggleTheme();
   };
 
   return (
     <button className={styles.themeToggleButton} onClick={onChangeTheme}>
-      {theme === 'light' ? '🌙 Dark' : '☀️ Light'}
+      {theme === 'light' ? '☀️ Light' : '🌙 Dark'}
     </button>
   );
-};
+});

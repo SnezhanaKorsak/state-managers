@@ -1,18 +1,20 @@
-import { filters, testData } from '../../constants';
+import { useEffect } from 'react';
+import { observer } from 'mobx-react-lite';
+
+import { useStore } from '../../store/StoreContext';
 import { TodoItem } from './todo-items';
 
 import styles from './index.module.css';
 
-export const TodoList = () => {
-  const todos = testData;
-  const filter = filters[0];
+export const TodoList = observer(() => {
+  const { todoStore } = useStore();
+  const filteredTodos = todoStore.filteredTodos;
+
   const loading = false;
 
-  const filteredTodos = todos.filter((todo) => {
-    if (filter === 'active') return !todo.completed;
-    if (filter === 'completed') return todo.completed;
-    return true;
-  });
+  useEffect(() => {
+    todoStore.loadTodos();
+  }, [todoStore]);
 
   if (loading) {
     return <p>Loading...</p>;
@@ -25,4 +27,4 @@ export const TodoList = () => {
       ))}
     </div>
   );
-};
+});
