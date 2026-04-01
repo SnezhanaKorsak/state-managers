@@ -1,12 +1,22 @@
+import { useShallow } from 'zustand/react/shallow';
+
 import { filters } from '../../constants';
+import { useAppStore } from '../../store/use-app-store';
+
+import type { Filter } from '../../types';
 
 import styles from './index.module.css';
 
 export const Filters = () => {
-  const filter = 'all';
+  const { setFilter, filter } = useAppStore(
+    useShallow((state) => ({
+      filter: state.filter,
+      setFilter: state.setFilter,
+    })),
+  );
 
-  const onChangeFilter = () => {
-    console.log('filter change');
+  const onChangeFilter = (filter: Filter) => {
+    setFilter(filter);
   };
 
   return (
@@ -15,7 +25,7 @@ export const Filters = () => {
         <button
           key={f}
           className={`${styles.filterButton} ${filter === f ? styles.active : ''}`}
-          onClick={onChangeFilter}
+          onClick={() => onChangeFilter(f)}
         >
           {f}
         </button>

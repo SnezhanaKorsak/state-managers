@@ -1,12 +1,17 @@
-import { filters, testData } from '../../constants';
+import { useShallow } from 'zustand/react/shallow';
+
+import { useAppStore } from '../../store/use-app-store';
+import { useTodoStore } from '../../store/use-todo-store';
 import { TodoItem } from './todo-items';
 
 import styles from './index.module.css';
 
 export const TodoList = () => {
-  const todos = testData;
-  const filter = filters[0];
-  const loading = false;
+  const { todos, loading } = useTodoStore(
+    useShallow((state) => ({ todos: state.todos, loading: state.loading })),
+  );
+
+  const filter = useAppStore((state) => state.filter);
 
   const filteredTodos = todos.filter((todo) => {
     if (filter === 'active') return !todo.completed;

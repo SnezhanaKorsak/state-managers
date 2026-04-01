@@ -1,3 +1,5 @@
+import { useTodoStore } from '../../../store/use-todo-store';
+
 import type { Todo } from '../../../types';
 
 import styles from './index.module.css';
@@ -7,8 +9,10 @@ type Props = {
 };
 
 export const TodoItem = ({ todo }: Props) => {
+  const toggleTodo = useTodoStore((state) => state.toggleTodo);
+
   const onChangeTodoStatus = () => {
-    console.log('onChange status');
+    toggleTodo(todo.id);
   };
 
   return (

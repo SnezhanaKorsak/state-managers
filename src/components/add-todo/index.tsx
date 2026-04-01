@@ -1,13 +1,18 @@
 import { useState } from 'react';
 
+import { useTodoStore } from '../../store/use-todo-store';
+
 import styles from './index.module.css';
 
 export const AddTodo = () => {
+  const addTodo = useTodoStore((state) => state.addTodo);
   const [text, setText] = useState('');
 
-  const addTodo = () => {
-    console.log(text);
-    setText('');
+  const onAddTodo = () => {
+    if (text.trim()) {
+      addTodo(text);
+      setText('');
+    }
   };
 
   return (
@@ -17,7 +22,7 @@ export const AddTodo = () => {
         value={text}
         onChange={(e) => setText(e.target.value)}
       />
-      <button className={styles.addTodoButton} onClick={addTodo}>
+      <button className={styles.addTodoButton} onClick={onAddTodo}>
         Add
       </button>
     </div>

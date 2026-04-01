@@ -1,12 +1,19 @@
-import { useState } from 'react';
+import { useShallow } from 'zustand/react/shallow';
+
+import { useAppStore } from '../../store/use-app-store';
 
 import styles from './index.module.css';
 
 export const ThemeToggle = () => {
-  const [theme, setTheme] = useState('light');
+  const { theme, toggleTheme } = useAppStore(
+    useShallow((state) => ({
+      theme: state.theme,
+      toggleTheme: state.toggleTheme,
+    })),
+  );
 
   const onChangeTheme = () => {
-    setTheme((prevState) => (prevState === 'light' ? 'dark' : 'light'));
+    toggleTheme();
   };
 
   return (
