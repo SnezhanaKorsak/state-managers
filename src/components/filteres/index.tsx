@@ -1,12 +1,17 @@
+import { useAtom } from 'jotai';
+
+import { filterAtom } from '../../atoms/app';
 import { filters } from '../../constants';
+
+import type { Filter } from '../../types';
 
 import styles from './index.module.css';
 
 export const Filters = () => {
-  const filter = 'all';
+  const [filter, setFilter] = useAtom(filterAtom);
 
-  const onChangeFilter = () => {
-    console.log('filter change');
+  const onChangeFilter = (newFilter: Filter) => {
+    setFilter(() => newFilter);
   };
 
   return (
@@ -15,7 +20,7 @@ export const Filters = () => {
         <button
           key={f}
           className={`${styles.filterButton} ${filter === f ? styles.active : ''}`}
-          onClick={onChangeFilter}
+          onClick={() => onChangeFilter(f)}
         >
           {f}
         </button>

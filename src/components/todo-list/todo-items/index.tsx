@@ -1,3 +1,7 @@
+import { useSetAtom } from 'jotai';
+
+import { toggleTodoAtom } from '../../../atoms/todos';
+
 import type { Todo } from '../../../types';
 
 import styles from './index.module.css';
@@ -7,8 +11,9 @@ type Props = {
 };
 
 export const TodoItem = ({ todo }: Props) => {
+  const toggleTodo = useSetAtom(toggleTodoAtom);
   const onChangeTodoStatus = () => {
-    console.log('onChange status');
+    toggleTodo(todo.id);
   };
 
   return (

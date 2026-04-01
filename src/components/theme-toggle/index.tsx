@@ -1,12 +1,14 @@
-import { useState } from 'react';
+import { useAtom } from 'jotai';
+
+import { themeAtom } from '../../atoms/app';
 
 import styles from './index.module.css';
 
 export const ThemeToggle = () => {
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useAtom(themeAtom);
 
   const onChangeTheme = () => {
-    setTheme((prevState) => (prevState === 'light' ? 'dark' : 'light'));
+    setTheme(theme === 'light' ? 'dark' : 'light');
   };
 
   return (

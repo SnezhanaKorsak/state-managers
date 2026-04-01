@@ -1,12 +1,21 @@
-import { filters, testData } from '../../constants';
+import { useEffect } from 'react';
+import { useAtomValue, useSetAtom } from 'jotai';
+
+import { filterAtom } from '../../atoms/app';
+import { loadingAtom, loadTodosAtom, todosAtom } from '../../atoms/todos';
 import { TodoItem } from './todo-items';
 
 import styles from './index.module.css';
 
 export const TodoList = () => {
-  const todos = testData;
-  const filter = filters[0];
-  const loading = false;
+  const loadTodos = useSetAtom(loadTodosAtom);
+  const todos = useAtomValue(todosAtom);
+  const loading = useAtomValue(loadingAtom);
+  const filter = useAtomValue(filterAtom);
+
+  useEffect(() => {
+    loadTodos();
+  }, [loadTodos]);
 
   const filteredTodos = todos.filter((todo) => {
     if (filter === 'active') return !todo.completed;
